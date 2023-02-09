@@ -96,6 +96,9 @@ class LeeCode {
     fun findMedianSortedArrays(nums1: IntArray, nums2: IntArray): Double {
         val numOne = if(nums1.isNotEmpty()) nums1[0] else 0
         val numTwo = if(nums2.isNotEmpty()) nums2[0] else 0
+        /**
+         * 新思路1：拿大的数组的尾数在小的数组中进行二分查找，大概就知道
+         */
         if (nums1.isEmpty()) {
             //直接计算nums2的
             return if (nums2.size == 1) {
@@ -122,18 +125,61 @@ class LeeCode {
             }
         } else {
             //两个都不为空
-            // 把两个数组合成一个，排序
+            //把两个数组合成一个，排序
+            //判断哪个数组的第一位小
+            var normal = nums1[0] <= nums2[0]
             val newArray = IntArray(nums1.size + nums2.size)
+            //定义一个临时值
+            var temp = if(normal) nums1[0] else nums2[0]
             for (index in 0 until nums1.size + nums2.size) {
-                if (index >= nums1.size) {
-                    newArray[index] = nums2[index - nums1.size]
+                if (normal) {
+                    if (index >= nums1.size) {
+                        newArray[index] = nums2[index - nums1.size]
+                    } else {
+                        newArray[index] = nums1[index]
+                    }
                 } else {
-                    newArray[index] = nums1[index]
+                    if (index >= nums2.size) {
+                        newArray[index] = nums1[index - nums2.size]
+                    } else {
+                        newArray[index] = nums2[index]
+                    }
                 }
             }
+            val newSize = newArray.size
+            if (newSize % 2 == 0) {
+                //偶数个
+            } else {
+                //奇数个
+            }
             //获取完整的新数组，进行排序
-            
+            val hashMap = HashMap<Int, Int>()
+            newArray.forEachIndexed { index, i ->
+
+            }
             return 0.0
         }
+    }
+
+    /**
+     * 给你一个字符串 s，找到 s 中最长的回文子串。
+    如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
+
+    示例 1：
+    输入：s = "babad"
+    输出："bab"
+    解释："aba" 同样是符合题意的答案。
+
+    示例 2：
+    输入：s = "cbbd"
+    输出："bb"
+
+    提示：
+    1 <= s.length <= 1000
+    s 仅由数字和英文字母组成
+
+     */
+    fun longestPalindrome(s: String): String {
+        return ""
     }
 }
